@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block title %}Temp{% endblock %}
+
+{% block content %} 
+    <h1>Welcome to temp</h1>
+
+
+    <form method="POST" action="/profilePicChange" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <input type="submit" value="Submit">
+    </form>
+    <br><br>
+
+    <a href="/myProfile">Go back to your Profile</a>
+
+
+{% endblock %}

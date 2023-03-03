@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+
+{% block title %}Profile{% endblock %}
+
+{% block content %} 
+
+
+
+
+    <h1>Welcome to your Profile</h1>
+
+
+    <div class='info'>
+        
+        <li>
+            Email: {{ acc['Email'] }}
+        </li>
+        <li>
+            Password: {{ acc['Password'] }}
+        </li>
+        <li>
+            Name: {{ acc['firstName'] + ' ' + acc['lastName']}}
+        </li>
+
+
+        <div style="float: right;">
+            <a href="/profilePicChange">Change your Profile Picture</a>
+            <h5>Your Profile Picture:</h5>
+            <img src="{{ url_for('static', filename=profilePicture)}}" alt="Your image is not rendering" width="250" height="250">
+        </div>
+        
+
+        
+        <li>
+            Grade: {{ acc['Grade'] }}
+        </li>
+        <li>
+            Id: {{ acc['ID'] }}
+        </li>
+        <li>
+            Bio: {{ acc['Bio'] }}
+        </li>
+
+    </div>
+    
+
+    <form method="POST">
+        <div>
+            <textarea name="bio" id="bio"></textarea>
+    
+        </div>
+        
+    
+        <br />
+    
+        <div align="center">
+            <button type="submit" >Update Bio</button>
+        </div>
+    </form>
+    
+    <br>
+
+    
+    <br>
+    <br>
+    
+    
+
+
+
+{% endblock %}

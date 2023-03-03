@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+{% block title %}Home Screen{% endblock %}
+
+{% block content %} 
+
+<link rel="stylesheet" href="../static/styles/findTutor.css">
+
+<h1>this is filter screen</h1>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
+<style>
+
+  #temp {
+    color: white;
+  }
+
+  #temp:hover{
+    color: black;
+  }
+</style>
+
+<ul id="myUL">
+    {% for account in accounts %} 
+        <div class='course'>
+            <li>
+                <a href="{{ url_for('views.renderInfo', Email = account['Email']) }}" style="text-decoration: none;"  id="temp">
+                    {{ account['firstName'] + ' ' + account['lastName']}}
+                </a>
+                
+            </li>
+             
+            
+        
+        </div>
+
+    {% endfor %}
+  
+</ul>
+
+
+
+
+
+
+    <script>
+        function myFunction() {
+          // Declare variables
+          var input, filter, ul, li, a, i, txtValue;
+          input = document.getElementById('myInput');
+          filter = input.value.toUpperCase();
+          ul = document.getElementById("myUL");
+          li = ul.getElementsByTagName('li');
+        
+          // Loop through all list items, and hide those who don't match the search query
+          for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              li[i].style.display = "";
+            } else {
+              li[i].style.display = "none";
+            }
+          }
+        }
+        </script>
+
+</form>
+
+
+{% endblock %}

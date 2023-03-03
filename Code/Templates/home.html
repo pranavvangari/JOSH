@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block title %}Home Screen{% endblock %}
+
+{% block content %} 
+    
+
+<h1>this is home screen</h1>
+<br/>
+<h4>
+    {{ acc['firstName'] + ' ' + acc['lastName']}} is logged in
+</h4>
+
+<a id="myProfile" href="/myProfile">Your Profile Page</a>
+
+
+
+
+
+
+
+
+<!--
+    {% for accounts in accounts %} 
+        <div class='course'>
+            {{ accounts['firstName'] + ' ' + accounts['lastName']}} 
+        
+        </div>
+
+    {% endfor %}
+
+    <br/>
+        <h1>other database</h1>
+
+    {% for names in namesToDisplay %}
+
+        <ul>
+            <li>{{ names.first_name }}</li>
+            
+        </ul>
+
+    {% endfor %}
+-->
+
+
+{% endblock %}
