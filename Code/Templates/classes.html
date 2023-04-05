@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+
+{% block title %}About Us{% endblock %}
+
+{% block content %} 
+    <h1>Classes</h1>
+
+    
+
+
+<table id= "classes-table" class="table shadow-lg table-dark">
+                    <thead>
+                    <tr>
+
+
+                        <th>Number</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        
+
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Imports data from database -->
+                    {% for class in classes %}
+                        <tr class= "filterDiv {{class['subject']}}">
+                            <td class="bg-danger">
+                                <label>
+                                    <input type="checkbox" id="{{acc['ID']}} {{ class['name'] }}" class="courseID" onchange="findChecked()">
+                                </label>
+
+                            </td>
+
+                            <td class="bg-secondary">{{ class['course_id'] }}</td>
+                            <td class="bg-danger">
+                                {{ class['name'] }}
+                                
+                            </td>
+                            
+                            
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+</table>
+
+<script>
+    
+        // When a checkbox is clicked, save its state to localStorage
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('click', function() {
+            localStorage.setItem(checkbox.id, checkbox.checked);
+        });
+        });
+
+        // When the page is loaded, set the state of the checkboxes from localStorage
+        checkboxes.forEach(function(checkbox) {
+        var state = localStorage.getItem(checkbox.id);
+        if (state) {
+            checkbox.checked = (state === 'true');
+        }
+        });
+
+        function getValue() {
+            var checkbox = document.getElementById("{{ classes[0]['course_id']}}");
+            
+            console.log(checkbox)
+            var value_to_send = 0; 
+            if (checkbox.checked) {
+                value_to_send = 1; 
+                console.log("Checkbox is checked");
+                // Do something if checkbox is checked
+            } else {
+                value_to_send = 0;
+                console.log("Checkbox is unchecked");
+                // Do something if checkbox is unchecked
+            }
+            
+        }
+
+        
+  function findChecked() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+
+    var value_to_send = "";
+
+    const classNameList = []
+    
+    for (let i = 0; i < checkboxes.length; i++) {
+      if (checkboxes[i].checked) {
+        console.log(`Checkbox ${i + 1} is checked.`);
+
+        value_to_send = value_to_send + " " + i;
+
+        var trialValue = checkboxes[i].id
+        classNameList.push(trialValue)
+        
+        
+        
+      }
+    }
+    
+    console.log(value_to_send)
+    console.log(classNameList)
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/checkedClasses", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({"classesNumber": classNameList}));
+
+  }
+
+    
+      
+    
+</script>
+
+
+
+
+
+
+        
+
+    
+
+{% endblock %}

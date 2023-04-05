@@ -1,0 +1,25 @@
+td a { 
+    display: block; 
+    border: 0p;
+    padding: 20px;
+    text-decoration: none;
+    color: black;
+   }
+ 
+   td a:hover {
+     text-decoration: none;
+     
+   }
+ 
+   tr:hover a {
+     color: rgb(141, 78, 78);
+   }
+ 
+   .table td {
+     padding: 0 !important;
+   }
+ 
+ 
+   body::-webkit-scrollbar{
+     display: none;
+   }

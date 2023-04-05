@@ -1,73 +1,98 @@
 {% extends "base.html" %}
 
 
-{% block title %}Home Screen{% endblock %}
+{% block title %}Find Tutor{% endblock %}
 
 {% block content %} 
 
 <link rel="stylesheet" href="../static/styles/findTutor.css">
 
-<h1>this is filter screen</h1>
+<br>
+<h1 style="text-align:center">Find a Tutor</h1>
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+<input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for a tutor...">
 
-<style>
+<div id="checkboxes" >
+  <input type="checkbox" id="9" onchange="searchTable()">
+  <label for="9">Freshman</label>
+  <input type="checkbox" id="10" onchange="searchTable()">
+  <label for="10">Sophmore</label>
+  <input type="checkbox" id="11" onchange="searchTable()">
+  <label for="11">Junior</label>
+  <input type="checkbox" id="12" onchange="searchTable()">
+  <label for="12">Senior</label>
+</div>
 
-  #temp {
-    color: white;
-  }
+<table class="table table-bordered table-hover" id="tutors">
+  <thead class="thead-light">
+    <tr>
+      <th>Name</th>
+      <th>Grade</th>
+      <th>Email</th>
+      <th>Subjects Taught</th>
+    </tr>
 
-  #temp:hover{
-    color: black;
-  }
-</style>
+  </thead>
+  <tbody>
 
-<ul id="myUL">
-    {% for account in accounts %} 
-        <div class='course'>
-            <li>
-                <a href="{{ url_for('views.renderInfo', Email = account['Email']) }}" style="text-decoration: none;"  id="temp">
-                    {{ account['firstName'] + ' ' + account['lastName']}}
-                </a>
-                
-            </li>
-             
-            
-        
-        </div>
+    {% for account in accounts %}
+      {% if account['TutorValue'] == 1 %}
 
+        <tr>
+          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['firstName']}} {{account['lastName']}}</a></td>
+          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['Grade']}}</a></td>
+          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['Email']}}</a></td>
+          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['SubjectsTaught']}}</a></td>
+        </tr>
+
+      {% endif %}
     {% endfor %}
-  
-</ul>
+
+  </tbody>
+</table>
 
 
+<script>
+function searchTable() {
+  // Declare variables
+  var input, filter, table, tableBody, rows, cells, cellText, searchMatch, gradeMatch;
+  input = document.getElementById('searchInput');
+  filter = input.value.toUpperCase();
+  table = document.getElementById('tutors');
+  tableBody = table.getElementsByTagName('tbody')[0];
+  rows = tableBody.getElementsByTagName('tr');
+  for (i = 0; i < rows.length; i++) {
+    searchMatch = false;
+    gradeMatch = true;
+    cells = rows[i].getElementsByTagName('td');
+    for (j = 0; j < cells.length; j++) {
+      cellText = cells[j].innerText.toUpperCase();
+      if (cellText.indexOf(filter) > -1) {
+        searchMatch = true;
+      }
+      //only filter by this grade if its checkbox is checked
+      if (document.getElementById("9").checked) {
+        gradeMatch = gradeMatch && cells[1].innerText.toUpperCase().indexOf("FRESHMAN") > -1;
+      }
+      if (document.getElementById("10").checked) {
+        gradeMatch = gradeMatch && cells[1].innerText.toUpperCase().indexOf("SOPHOMORE") > -1;
+      }
+      if (document.getElementById("11").checked) {
+        gradeMatch = gradeMatch && cells[1].innerText.toUpperCase().indexOf("JUNIOR") > -1;
+      }
+      if (document.getElementById("12").checked) {
+        gradeMatch = gradeMatch && cells[1].innerText.toUpperCase().indexOf("SENIOR") > -1;
+      }
+    }
+    if (gradeMatch && searchMatch) {
+      rows[i].style.display = '';
+    } else {
+      rows[i].style.display = 'none';
+    }
+  }
+}
+</script>
 
-
-
-
-    <script>
-        function myFunction() {
-          // Declare variables
-          var input, filter, ul, li, a, i, txtValue;
-          input = document.getElementById('myInput');
-          filter = input.value.toUpperCase();
-          ul = document.getElementById("myUL");
-          li = ul.getElementsByTagName('li');
-        
-          // Loop through all list items, and hide those who don't match the search query
-          for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-              li[i].style.display = "";
-            } else {
-              li[i].style.display = "none";
-            }
-          }
-        }
-        </script>
-
-</form>
 
 
 {% endblock %}

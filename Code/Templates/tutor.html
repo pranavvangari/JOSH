@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 
-{% block title %}Profile{% endblock %}
+{% block title %}Tutor{% endblock %}
 
 {% block content %} 
     <h1>Welcome to Tutor Page</h1>
     <br>
 
     {% for account in accounts %}
-
+    
     
         {% if account['Email'] == email %}
             <div style="float: right;">
