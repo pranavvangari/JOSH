@@ -3,53 +3,64 @@
 
 {% block title %}About Us{% endblock %}
 
-{% block content %} 
+{% block content %}
     <h1>Classes</h1>
 
-    
+<input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for a tutor...">
+<br><br>
 
 
 <table id= "classes-table" class="table shadow-lg table-dark">
-                    <thead>
-                    <tr>
+    <thead>
+        <tr>
 
 
-                        <th>Number</th>
-                        <th>ID</th>
-                        <th>Name</th>
+            <th>Number</th>
+            <th>ID</th>
+            <th>Name</th>
                         
 
 
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                      <!-- Imports data from database -->
-                    {% for class in classes %}
-                        <tr class= "filterDiv {{class['subject']}}">
-                            <td class="bg-danger">
-                                <label>
-                                    <input type="checkbox" id="{{acc['ID']}} {{ class['name'] }}" class="courseID" onchange="findChecked()">
-                                </label>
-
-                            </td>
-
-                            <td class="bg-secondary">{{ class['course_id'] }}</td>
-                            <td class="bg-danger">
-                                {{ class['name'] }}
-                                
-                            </td>
-                            
-                            
-
-                        </tr>
-                    {% endfor %}
-                </tbody>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Imports data from database -->
+        {% for class in classes %}
+            {% if class['subject'] != Null %}
+                <tr class= "filterDiv {{class['subject']}}">
+                    <td class="bg-danger">
+                        <label>
+                            <input type="checkbox" id="{{ class['name'] }}" class="courseID" onchange="findChecked()">
+                        </label>
+    
+                    </td>
+    
+                    <td class="bg-secondary">{{ class['course_id'] }}</td>
+                    <td class="bg-danger">
+                        {{ class['name'] }}
+                        
+                    </td>
+                    
+                
+                </tr>
+            
+            {% endif %}
+          
+      {% endfor %}
+  </tbody>
 </table>
 
 <script>
+
+        // Code to check the checkboxes from the database
+        
+
+
     
         // When a checkbox is clicked, save its state to localStorage
+
+        /*
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(function(checkbox) {
         checkbox.addEventListener('click', function() {
@@ -63,24 +74,31 @@
         if (state) {
             checkbox.checked = (state === 'true');
         }
-        });
+        });*/
 
-        function getValue() {
-            var checkbox = document.getElementById("{{ classes[0]['course_id']}}");
-            
-            console.log(checkbox)
-            var value_to_send = 0; 
-            if (checkbox.checked) {
-                value_to_send = 1; 
-                console.log("Checkbox is checked");
-                // Do something if checkbox is checked
+    function searchTable() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("classes-table");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
             } else {
-                value_to_send = 0;
-                console.log("Checkbox is unchecked");
-                // Do something if checkbox is unchecked
+                tr[i].style.display = "none";
             }
-            
+            }
         }
+    }
+
+    
 
         
   function findChecked() {
@@ -89,31 +107,100 @@
 
     var value_to_send = "";
 
-    const classNameList = []
+    const classNameList = [];
+    var classNumberString = "";
     
     for (let i = 0; i < checkboxes.length; i++) {
       if (checkboxes[i].checked) {
         console.log(`Checkbox ${i + 1} is checked.`);
 
+
+        if (classNumberString == "") {
+            classNumberString = (i+1);
+        }
+        else {
+            classNumberString = classNumberString + ", " + (i+1);
+        }
+
         value_to_send = value_to_send + " " + i;
 
+
         var trialValue = checkboxes[i].id
+
+        
         classNameList.push(trialValue)
-        
-        
         
       }
     }
     
+    
     console.log(value_to_send)
     console.log(classNameList)
+    console.log("new")
+    console.log(classNumberString)
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/checkedClasses", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({"classesNumber": classNameList}));
+    xhr.send(JSON.stringify({"classesNames": classNameList}));
+
+    
+
+
 
   }
+
+  var classesFromDB = "{{ classesFromDB }}"; 
+
+    console.log(classesFromDB)
+    
+    var commaCount = 0;
+
+    for (var i = 0; i < classesFromDB.length; i++) {
+        if (classesFromDB.substring(i, i + 2) == ", ") {
+            commaCount++;
+        }
+    }
+    console.log("# of commas are " + commaCount)
+
+
+
+    var reducingString = classesFromDB
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    for (var i = 0; i < commaCount + 1; i++) {
+        var firstComma = reducingString.indexOf(", ");
+
+        console.log("the index of the comma is " + firstComma) 
+        
+        //console.log(reducingString.substring(0, firstComma))
+
+        for (var j = 0; j < checkboxes.length; j++) {
+
+            if (checkboxes[j].id == reducingString.substring(0, firstComma)) {
+
+                console.log("works" + i)
+                checkboxes[j].checked = true;
+                reducingString = reducingString.substring(firstComma + 2)
+                console.log(reducingString)
+        
+            }
+
+            if (reducingString.indexOf(",") == -1 && checkboxes[j].id == reducingString ) {
+                checkboxes[j].checked = true;
+
+            }
+
+        }
+
+    }
+
+    console.log("console is working")
+
+
+    
+
+
 
     
       

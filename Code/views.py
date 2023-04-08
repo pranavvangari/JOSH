@@ -7,8 +7,7 @@ import sqlite3
 from .models import User
 from . import db
 from flask_login import current_user, login_required, logout_user
-from bs4 import BeautifulSoup
-import requests
+
 
 #checkbox imports
 from PyQt5.QtWidgets import QApplication, QMainWindow, QCheckBox
@@ -92,6 +91,7 @@ def home():
 
 
 @views.route('/findTutor', methods=['GET', 'POST'])
+@login_required
 def findTutor():
     connection = get_db_connection()
     accounts = connection.execute('SELECT * FROM Accounts').fetchall() # selects everything from Accounts table
@@ -141,11 +141,17 @@ def myProfile():
             update_bio(connection, (bio, current_user.id))
             flash('Bio updated successfully!', category='success')
 
+
+
+    tutorCheckboxValueDB = 1
+    for account in accounts:
+        if account['ID'] == current_user.id:
+            tutorCheckboxValueDB = account['TutorValue']
+
     
     connection.close()
-    
 
-    return render_template("myProfile.html", accounts=accounts, acc=acc, profilePicture=profilePicture)
+    return render_template("myProfile.html", accounts=accounts, acc=acc, profilePicture=profilePicture, tutorCheckboxValueDB=tutorCheckboxValueDB)
 
 @views.route('/aboutUs')
 def aboutUs():
@@ -175,6 +181,7 @@ def renderInfo(Email):
 
 
 @views.route('/profilePicChange', methods=['GET', 'POST']) 
+@login_required
 def profilePicChange(): 
     connection = get_db_connection()
     accounts = connection.execute('SELECT * FROM Accounts').fetchall()
@@ -212,9 +219,12 @@ def profilePicChange():
 
 
 @views.route('/classes')
+@login_required
 def classes():
     classesConn = get_classesDB_connection()
     classes = classesConn.execute('SELECT * FROM Catalog').fetchall()
+
+
 
     connection = get_db_connection()
     accounts = connection.execute('SELECT * FROM Accounts').fetchall() # selects everything from Accounts table
@@ -224,36 +234,29 @@ def classes():
         if current_user.id == account['ID']:
             acc = account
 
+    classesFromDB = 1
+    for account in accounts:
+        if account['ID'] == current_user.id:
+            print("subjectstaughtt")
+            classesFromDB = account['SubjectsTaught']
+    
+    
 
 
-    return render_template("classes.html", classes=classes, acc=acc)
+
+
+    return render_template("classes.html", classes=classes, acc=acc, classesFromDB=classesFromDB)
 
 
 @views.route('/temp', methods=['Get', 'POST', 'MYMETHOD'])
+@login_required
 def temp():
-
-    if request.method == 'POST':
-        checkbox1 = request.form.get('checkbox1')
-        checkbox2 = request.form.get('checkbox2')
-        checkbox3 = request.form.get('checkbox3')
-
-        # Store the checkbox values in a cookie
-        response = make_response('Checkbox values stored!')
-        response.set_cookie('checkbox1', checkbox1)
-        response.set_cookie('checkbox2', checkbox2)
-        response.set_cookie('checkbox3', checkbox3)
-
-    checkbox1 = request.cookies.get('checkbox1', '')
-    checkbox2 = request.cookies.get('checkbox2', '')
-    checkbox3 = request.cookies.get('checkbox3', '')
-
-    return render_template("temp.html", checkbox1=checkbox1, checkbox2=checkbox2, checkbox3=checkbox3)
 
 
     
 
-
     return render_template("temp.html")
+
 
 @views.route('/send_tutorValue', methods=['POST'])
 def send_value():
@@ -277,32 +280,29 @@ def classesChecked():
     connection = get_db_connection()
     accounts = connection.execute('SELECT * FROM Accounts').fetchall() # selects everything from Accounts table
     tempVar = "works"
-    value_received = request.json['classesNumber']
+    value_received = request.json['classesNames']  
 
-    classesString = value_received[0]
+    print(value_received)
+
+    if len(value_received) > 0:
+        classesString = value_received[0]
+    else:
+        classesString = None
+    
     for x in value_received:
-        print("we are")
-        print(x)
+    
         if x != classesString:
             classesString = classesString + ", " + x
-
-    print(classesString)
+        
 
     update_subjectsTaught(connection, (classesString, current_user.id))
 
 
     
-
-    
-
-
-    print(value_received)
-
-
-
-    #update_subjectsTaught(connection, (tempVar, current_user.id))
-
-
      
+    
     return render_template("home.html")
-        
+
+
+
+

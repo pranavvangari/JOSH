@@ -8,7 +8,12 @@
 
 
 
+
+
+
     <h1>Welcome to your Profile</h1>
+
+
 
 
     <div class='info'>
@@ -82,20 +87,7 @@
     <script>
 
         // When a checkbox is clicked, save its state to localStorage
-        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('click', function() {
-            localStorage.setItem(checkbox.id, checkbox.checked);
-        });
-        });
-
-        // When the page is loaded, set the state of the checkboxes from localStorage
-        checkboxes.forEach(function(checkbox) {
-        var state = localStorage.getItem(checkbox.id);
-        if (state) {
-            checkbox.checked = (state === 'true');
-        }
-        });
+        
 
         function getValue() {
             var checkbox = document.getElementsByClassName("tutorCheckboxDynamic")[0];
@@ -117,6 +109,23 @@
 
 
         }
+
+        var tutorCheckbox = document.getElementById("{{acc['ID']}}");
+        console.log(tutorCheckbox)
+
+        var tutorCheckboxValueDB = "{{ tutorCheckboxValueDB }}";
+        console.log(tutorCheckboxValueDB)
+
+
+        if (tutorCheckboxValueDB == 1) {
+            tutorCheckbox.checked = true;
+
+        }
+        else {
+            tutorCheckbox.checked = false;
+        }
+
+        
 
     </script>
 
