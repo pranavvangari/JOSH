@@ -1,25 +1,72 @@
+.container {
+  display: flex;
+}
+
+/* Style for the filter column */
+.filter-column {
+  flex: 0 0 200px; /* Set width of the filter column */
+  background-color:rgb(245, 245, 245);
+  padding: 10px;
+  /*max-height: calc(55vh); /* Set min-height based on viewport height minus header and footer height
+  min-height: calc(55vh);*/
+  max-height: 400px;
+  min-height: 400px;
+}
+
+/* Style for the main content */
+.main-content {
+    flex: 1; /* Set flex grow property to allow it to take up remaining space */
+    padding: 10px;
+}
+
+/* Style for the filter options */
+.filter-options {
+    margin-bottom: 10px;
+}
+
+
+
 td a { 
-    display: block; 
-    border: 0p;
-    padding: 20px;
-    text-decoration: none;
-    color: black;
-   }
- 
-   td a:hover {
-     text-decoration: none;
-     
-   }
- 
-   tr:hover a {
-     color: rgb(141, 78, 78);
-   }
- 
-   .table td {
-     padding: 0 !important;
-   }
- 
- 
-   body::-webkit-scrollbar{
-     display: none;
-   }
+  display: block; 
+  border: 0p;
+  padding: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+td a:hover {
+  text-decoration: none;
+    
+}
+
+tr:hover a {
+  color: #9d152d;
+}
+
+.table td {
+  padding: 0 !important;
+}
+
+body::-webkit-scrollbar{
+  display: none;
+}
+
+.table-container table {
+  width: 100%; /* Set table width to 100% by default */
+  table-layout: fixed; /* Fix the table layout to prevent cell width from expanding */
+}
+
+.table-container td:last-child {
+  overflow-wrap: break-word; /* Use overflow-wrap property to wrap long words within cells */
+}
+
+.heading {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
+  font-weight: bold;
+  font-size: 65px;
+}
+
+#searchInput {
+  float: right;
+}

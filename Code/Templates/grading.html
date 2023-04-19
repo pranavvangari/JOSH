@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+
+{% block title %} Course Catalog {%endblock%}
+
+
+
+{% block content %}
+
+<!-- hard coded page about grading. We don't really have any other data for this so it was the best we could do -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+
+<div class="jumbotron p-3">
+    <div class="well text-center">
+
+        <h1>Grading</h1>
+
+    </div>
+</div>
+
+  
+
+    
+
+    <div class="container" style="background-color:#bbbbbb">
+      <div class="row" >
+        <div class='col' style="margin-top: 20px;">
+          <div class="card">
+          <div class="well text-center">
+            <div style="width: 22rem;">
+            <div class="container">
+                      <h3>Standard Grade Scale</h3>            
+                      <table class="table table-striped">
+                      <thead>
+                  <tr>
+                    <th>Grade</th>
+                    <th>GPA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>A+</td>
+                    <td>4.30</td>
+                  </tr>
+                  <tr>
+                    <td>A</td>
+                    <td>4.00</td>
+                  </tr>
+                  <tr>
+                    <td>A-</td>
+                    <td>3.70</td>
+                  </tr>
+                  <tr>
+                    <td>B+</td>
+                    <td>3.30</td>
+                  </tr>
+                  <tr>
+                    <td>B</td>
+                    <td>3.00</td>
+                  </tr>
+                  <tr>
+                    <td>B-</td>
+                    <td>2.70</td>
+                  </tr>
+                  <tr>
+                    <td>C+</td>
+                    <td>2.30</td>
+                  </tr>
+                  <tr>
+                    <td>C</td>
+                    <td>2.00</td>
+                  </tr>
+                  <tr>
+                    <td>C-</td>
+                    <td>1.70</td>
+                  </tr>
+                  <tr>
+                    <td>D+</td>
+                    <td>1.30</td>
+                  </tr>
+                  <tr>
+                    <td>D</td>
+                    <td>1.00</td>
+                  </tr>
+                  <tr>
+                    <td>D-</td>
+                    <td>0.70</td>
+                  </tr>
+                  <tr>
+                    <td>F</td>
+                    <td>0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="col" style="margin-top: 20px;">
+          <div class="card">
+          <div class="well text-center">
+              <div style="width: 22rem;">
+              <div class="container">
+              <h3>Honors Grade Scale</h3>            
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Grade</th>
+                    <th>GPA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>A+</td>
+                    <td>4.80</td>
+                  </tr>
+                  <tr>
+                    <td>A</td>
+                    <td>4.50</td>
+                  </tr>
+                  <tr>
+                    <td>A-</td>
+                    <td>4.20</td>
+                  </tr>
+                  <tr>
+                    <td>B+</td>
+                    <td>3.80</td>
+                  </tr>
+                  <tr>
+                    <td>B</td>
+                    <td>3.50</td>
+                  </tr>
+                  <tr>
+                    <td>B-</td>
+                    <td>3.20</td>
+                  </tr>
+                  <tr>
+                    <td>C+</td>
+                    <td>2.80</td>
+                  </tr>
+                  <tr>
+                    <td>C</td>
+                    <td>2.50</td>
+                  </tr>
+                  <tr>
+                    <td>C-</td>
+                    <td>2.20</td>
+                  </tr>
+                  <tr>
+                    <td>D+</td>
+                    <td>1.30</td>
+                  </tr>
+                  <tr>
+                    <td>D</td>
+                    <td>1.00</td>
+                  </tr>
+                  <tr>
+                    <td>D-</td>
+                    <td>0.70</td>
+                  </tr>
+                  <tr>
+                    <td>F</td>
+                    <td>0.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </div>
+            </div>
+        </div>
+        <div class="col" style="margin-top: 20px;">
+          <div class="card">
+          <div class="well text-center">
+          <div style="width: 22rem;">
+          <div class="container">
+          <h3>AP Grade Scale</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Grade</th>
+                <th>GPA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A+</td>
+                <td>5.30</td>
+              </tr>
+              <tr>
+                <td>A</td>
+                <td>5.00</td>
+              </tr>
+              <tr>
+                <td>A-</td>
+                <td>4.70</td>
+              </tr>
+              <tr>
+                <td>B+</td>
+                <td>4.30</td>
+              </tr>
+              <tr>
+                <td>B</td>
+                <td>4.00</td>
+              </tr>
+              <tr>
+                <td>B-</td>
+                <td>3.70</td>
+              </tr>
+              <tr>
+                <td>C+</td>
+                <td>3.30</td>
+              </tr>
+              <tr>
+                <td>C</td>
+                <td>3.00</td>
+              </tr>
+              <tr>
+                <td>C-</td>
+                <td>2.70</td>
+              </tr>
+              <tr>
+                <td>D+</td>
+                <td>1.30</td>
+              </tr>
+              <tr>
+                <td>D</td>
+                <td>1.00</td>
+              </tr>
+              <tr>
+                <td>D-</td>
+                <td>0.70</td>
+              </tr>
+              <tr>
+                <td>F</td>
+                <td>0.00</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+        </div>
+      </div>
+                  
+      
+    </div>
+</div>
+
+
+
+  <div class="container" style="background-color:#bbbbbb">
+      <div class="row">
+        <div class='col'>
+          <div class="container">
+          <div class="well text-center">
+            <h3>Class Rank and Latin Honor System</h3>
+          </div>
+          <p>Starting with the Class of 2020, class rank will no longer be calculated. The Latin Honor System will be implemented, with students having the respective label designated on their transcript for aquiring a cumulative weighted grade point average as noted below:</p>  
+          <p></p>
+          <p>Cum Laude: (3.75-3.99)</p>
+          <p>Magna Cum Laude: (4.00-4.249)</p>
+          <p>Summa Cum Laude: (above 4.25)</p>
+        </div>
+        </div>
+        <div class='col'>
+          <div class="container">
+          <div class="well text-center">
+            <h3>Pass/Fail Option</h3>
+          </div>
+          <p>One course per semester may be taken by juniors or seniors as PASS/FAIL. A PASS grade in a course earns credit towards graduation, but does not affect a student's grade point average. A grade of FAIL earns no credit and does not lower a student's grade point average. The course selected cannot be a course required for graduation. A decision to follow this option must be made during the first week of the semester and requires the permission of the parent, teacher, and counselor. Passing grades cannot be changed back to letter grades at a future time. If a student chooses the PASS/FAIL option, PASS will be awarded only for 60% or better. Any grade lower than 60% will receive a failing grade. Forms and details are available from the Student Services Office.</p>  
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <div class="container" style="background-color:#bbbbbb">
+        <div class="row">
+          <div class='col'>
+            <div class="container">
+            <div class="well text-center">
+              <h3>Audits</h3>
+            </div>
+            <p>Students who wish to participate in a course for NO GRADE OR CREDIT may elect to audit a course, with the teacher's approval. This option requires the teacher to establish guidelines and conditions for acceptance into the class. See your counselor for forms and information. All attendance policies apply for classes that are being audited.</p>  
+          </div>
+          </div>
+          <div class='col'>
+            <div class="container">
+            <div class="well text-center">
+            <h3>Course Retake Policy</h3>
+            </div>
+            <p>Students with a low but passing grade may apply with the Administration to retake a course to achieve a higher grade. The class must be retaken at Huntley High School. Once the course is completed, the improved grade will be recorded and included in the student's GPA. The original grade will also appear on the transcript. Students must see their counselor in order to begin this application process.</p>  
+          </div>
+        </div>
+          <div class='col'>
+            <div class="container">
+            <div class="well text-center">
+              <h3>Exclusions</h3>
+            </div>
+            <p>The Following courses are not included in the calculation of a student's grade point average:</p> 
+              <li>Courses completed by home-schooled students</li> 
+              <li>Correspondence courses</li> 
+              <li>Audit, independent study, and GPA-waived courses</li> 
+              <li>External credit courses</li> 
+              <li>Any course in which the regular outcomes have been significantly modified for an individual student</li> 
+              <p></p>
+          </div>
+          </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+{% endblock %}

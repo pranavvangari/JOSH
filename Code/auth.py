@@ -1,13 +1,24 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, Flask
 from flask_login import login_user, login_required, logout_user, current_user, LoginManager, UserMixin
 import sqlite3
+
+from Code.views import temp
 from .models import User
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_mail import Mail, Message
 
 
 
 auth = Blueprint('auth', __name__)
+
+# configs for flask_mail
+#download pip install flask_mail==0.9.0
+
+
+
+
+
 
 
 

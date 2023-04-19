@@ -1,12 +1,17 @@
 body {
     background-color: white;
+
 }
+
+
 
 /*#navHomeButton {
     border: 3px solid;
     padding: -20px;
 }*/
 
-nav {
+#base-nav {
     border-bottom: 1px solid black;
+    background-color: white;
 }
+

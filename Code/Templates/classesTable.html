@@ -1,0 +1,447 @@
+{% extends 'base.html' %}
+
+
+
+
+
+
+{% block title %} Course Catalog {%endblock%}
+
+
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="http://localhost:5000/plan">Favorites</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+
+<div class="jumbotron p-3 ">
+  <div class="well text-center">
+
+     <div><h1>HHS Course Catalog</h1></div>
+     <div id="favoriteClasses"></div>
+    
+
+  </div>
+</div>
+
+
+
+<style>
+  .favorited {
+        color: gold;
+      }
+  .button{
+    color: black;
+  }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+
+
+            <div class="jumbotron p-3">
+                <!-- Add new classes button (useless rn) -->
+                <h2>Search Classes  </h2>
+
+
+                <div>
+                  {% for grade in grade %}
+                    <p>{{grade}}</p>
+                  {% endfor %}
+                </div>
+
+
+                <!-- Displays the search bar -->
+                <input class="shadow-lg p-2 mb-4" style="width:100%" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for classes">
+                    
+
+
+                      <!-- Displays the advanced search button -->
+                      <div>
+                        <button id="toggle-btn">Search by Subject</button>
+                      </div>
+                      <!-- Creates the checkboxes -->
+                      <div id="checkboxes" style="display:none">
+                        {% for data in data %}
+                        {% if data != ' ' %}
+                        <input type="checkbox" id="{{data}}" class="subject-checkbox" value="{{data}}">
+                        <label for="{{data}}">{{data}}</label>
+                        {% endif %}
+                        {% endfor %}
+                        <input type="checkbox" id="none" class="subject-checkbox" value="none">
+                        <label for="none">Other</label>
+                      </div>
+
+
+                      <!-- Displays the advanced search button -->
+                      <div>
+                        <button id="gradetoggle-btn">Search by Grade Level</button>
+                      </div>
+
+                      <!--
+                      <select id="subject-filter-select">
+                        <option value="all">All</option>
+                        <option value="9">9th</option>
+                        <option value="10">10th</option>
+                        <option value="11">11th</option>
+                        <option value="12">12th</option>
+                      </select>
+                     -->
+                    
+                      <!-- Creates the checkboxes -->
+                      <div id="gradeCheckboxes" ></div>
+                        <input type="checkbox" id="9" class="grade-checkbox" value="9">
+                        <label for="9">9th Grade</label>
+                        <input type="checkbox" id="10" class="grade-checkbox" value="10">
+                        <label for="10">10th Grade</label>
+                        <input type="checkbox" id="11" class="grade-checkbox" value="11">
+                        <label for="11">11th Grade</label>
+                        <input type="checkbox" id="12" class="grade-checkbox" value="12">
+                        <label for="12">12th Grade</label>
+                    </div>
+                     
+
+
+
+
+                <!-- Create's table -->
+                  <table id= "classes-table" class="table shadow-lg table-dark">
+                    <thead>
+                    <tr>
+
+
+                        <th>Favorite</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th>Grades Available</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Imports data from database -->
+                    {% for lstCourse in lstCourse %}
+                        <tr class= "filterDiv {{lstCourse['subject']}}" favorite=false>
+                            
+                              <script>
+                                //var name = lstCourse['name'];
+                              </script>
+                              
+                                <td> 
+                                  <button style="background-color: red" class="favorite-button" onclick="favoriteClass('{{ lstCourse['name'] }}','{{ lstCourse['subject'] }}','{{ lstCourse['course_id'] }}' )" data-class-id="{{ lstCourse['name'] }}">
+                                  <span class="fa fa-star">
+                                  </span>
+                                </button>
+                                </td>
+                                
+                    
+
+                            
+                            <td class="bg-secondary">{{ lstCourse['course_id'] }}</td>
+                            <td class="bg-danger">
+                                <a href="{{url_for('views.renderInfo', Info = lstCourse['course_id'])}}" class="btn btn-muted btn-xs">
+                                    {{ lstCourse['name'] }}
+                                </a>
+                            </td>
+                            {% if lstCourse['subject'] != ' ' %}
+                                <td class="bg-secondary" data-value="{{lstCourse['subject']}}">{{lstCourse['subject']}}</td>
+                            {% else %}
+                                <td class="bg-secondary">none</td>
+                            {% endif %}
+                            {% if lstCourse['grade_lower'] == '' %}
+                            <td class="bg-danger" data-value="unspecified">unspecified</td>
+                            {% elif lstCourse['grade_lower'] == 9 and lstCourse['grade_upper'] == 9  %}
+                            <td class="bg-danger" data-value="9">9</td>
+                            {% elif lstCourse['grade_lower'] == 9 and lstCourse['grade_upper'] == 10  %}
+                            <td class="bg-danger" data-value="9,10">9,10</td>
+                            {% elif lstCourse['grade_lower'] == 9 and lstCourse['grade_upper'] == 11  %}
+                            <td class="bg-danger" data-value="9,10,11">9,10,11</td>
+                            {% elif lstCourse['grade_lower'] == 9 and lstCourse['grade_upper'] == 12  %}
+                            <td class="bg-danger" data-value="9,10,11,12">9,10,11,12</td>
+                            {% elif lstCourse['grade_lower'] == 10 and lstCourse['grade_upper'] == 10  %}
+                            <td class="bg-danger" data-value="10">10</td>
+                            {% elif lstCourse['grade_lower'] == 10 and lstCourse['grade_upper'] == 11  %}
+                            <td class="bg-danger" data-value="10,11">10,11</td>
+                            {% elif lstCourse['grade_lower'] == 10 and lstCourse['grade_upper'] == 12  %}
+                            <td class="bg-danger" data-value="10,11,12">10,11,12</td>
+                            {% elif lstCourse['grade_lower'] == 11 and lstCourse['grade_upper'] == 11  %}
+                            <td class="bg-danger" data-value="11">11</td>
+                            {% elif lstCourse['grade_lower'] == 11 and lstCourse['grade_upper'] == 12  %}
+                            <td class="bg-danger" data-value="11,12">11,12</td>
+                            {% elif lstCourse['grade_lower'] == 12 and lstCourse['grade_upper'] == 12  %}
+                            <td class="bg-danger" data-value="12">12</td>
+                            {% endif %}
+
+
+
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+  //search bar code
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("classes-table");
+      tr = table.getElementsByTagName("tr");
+   
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) { 
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+       }
+    }
+   
+    //list of class subjects, no repeats
+    var data = [data];
+
+
+    const toggleBtn = document.getElementById('toggle-btn');
+      const checkboxes = document.getElementById('checkboxes');
+      const tableBody = document.getElementById('classes-table').getElementsByTagName('tbody')[0];
+    toggleBtn.addEventListener('click', () => {
+        if (checkboxes.style.display === 'none') {
+          checkboxes.style.display = 'block';
+        } else {
+          checkboxes.style.display = 'none';
+        }
+      });
+
+
+
+
+      const gradetoggleBtn = document.getElementById('gradetoggle-btn');
+      const gcheckboxes = document.getElementById('gradeCheckboxes');
+      const gradetableBody = document.getElementById('classes-table').getElementsByTagName('tbody')[0];
+      gradetoggleBtn.addEventListener('click', () => {
+        if (gcheckboxes.style.display === 'none') {
+          gcheckboxes.style.display = 'block';
+        } else {
+          gcheckboxes.style.display = 'none';
+        }
+      });
+
+let selectedSubjects = [];
+let selectedGrades = [];
+
+document.querySelectorAll('.subject-checkbox').forEach(checkbox => {
+  checkbox.addEventListener('change', (event) => {
+    if (event.target.checked) {
+      selectedSubjects.push(event.target.value);
+    } else {
+      const index = selectedSubjects.indexOf(event.target.value);
+      if (index !== -1) {
+        selectedSubjects.splice(index, 1);
+      }
+    }
+    filterTable();
+  });
+});
+
+function toggleStar(button) {
+  var icon = button.getElementsByTagName("i")[0];
+  if (icon.classList.contains("far")) {
+    icon.classList.remove("far");
+    icon.classList.add("fas");
+  } else {
+    icon.classList.remove("fas");
+    icon.classList.add("far");
+  }
+}
+
+
+document.querySelectorAll('.grade-checkbox').forEach(checkbox => {
+  checkbox.addEventListener('change', (event) => {
+    if (event.target.checked) {
+      selectedGrades.push(event.target.value);
+    } else {
+      const index = selectedGrades.indexOf(event.target.value);
+      if (index !== -1) {
+        selectedGrades.splice(index, 1);
+      }
+    }
+    filterTable();
+  });
+});
+
+
+function filterTable() {
+  const table = document.getElementById('classes-table');
+  const rows = table.getElementsByTagName('tr');
+  for (let i = 1; i < rows.length; i++) {
+    const classRow = rows[i];
+    const classSubject = classRow.getElementsByTagName('td')[3].innerText;
+    const classGrade = classRow.getElementsByTagName('td')[4].innerText.toLowerCase();
+    let showRow = true;
+    if (selectedSubjects.length > 0 && !selectedSubjects.includes(classSubject)) {
+      showRow = false;
+    }
+    if (selectedGrades.length > 0 && !classGrade.includes(selectedGrades)) {
+      showRow = false;
+    }
+    classRow.style.display = showRow ? '' : 'none';
+  }
+}
+
+// Array to hold the favorited class names
+let favoriteClasses =[];
+favoriteClasses = JSON.parse(localStorage.getItem("favclasses"));
+
+let favoriteSubjects =[];
+favoriteSubjects= JSON.parse(localStorage.getItem("favsubjs"));
+
+let favoriteIDs =[];
+favoriteIDs= JSON.parse(localStorage.getItem("favids"));
+
+updateFavoritesList()
+
+
+// Function to handle the "favorite" button clicks
+function favoriteClass(className, classSubj, classID) {
+  favoriteClasses = JSON.parse(localStorage.getItem("favclasses"));
+  favoriteSubjects= JSON.parse(localStorage.getItem("favsubjs"));
+  favoriteIDs= JSON.parse(localStorage.getItem("favids"));
+  
+  console.log(favoriteClasses);
+  console.log(favoriteSubjects);
+  console.log(favoriteIDs);
+  // Check if the class has already been favorited
+  if (favoriteClasses == null) {
+    favoriteClasses =[className];
+    favoriteSubjects =[classSubj];
+    favoriteIDs =[classID];
+    localStorage.setItem("favclasses", JSON.stringify(favoriteClasses));
+
+  }
+  else if (!favoriteClasses.includes(className)) {
+  // Add the class to the favorites array
+    favoriteClasses.push(className);
+
+    localStorage.setItem("favclasses", JSON.stringify(favoriteClasses));
+      
+      // Update the list of favorited classes
+    updateFavoritesList();   
+  }
+}
+
+// Function to handle the "unfavorite" button clicks
+function unfavoriteClass(className) {
+  // Find the index of the class in the favorites array
+  
+  let index = favoriteClasses.indexOf(className);
+  
+  // If the class is found, remove it from the array
+  if (index !== -1) {
+    favoriteClasses.splice(index, 1);
+
+    localStorage.setItem("favclasses", JSON.stringify(favoriteClasses));
+    
+    // Update the list of favorited classes
+    updateFavoritesList();
+  }
+}
+
+// Function to update the list of favorited classes
+function updateFavoritesList() {
+  // Get the favorite classes element from the DOM
+  favoriteClasses = JSON.parse(localStorage.getItem("favclasses"));
+  let favoritesElement = document.getElementById("favoriteClasses");
+  
+  
+  // Clear the previous contents of the favorites element
+  favoritesElement.innerHTML = "";
+  
+  // Loop through the favorited classes and add them to the element
+  favoriteClasses.forEach(className => {
+    let classElement = document.createElement("p");
+    classElement.innerText = className;
+    
+    // Create an "unfavorite" button for each class
+    let unfavoriteButton = document.createElement("button");
+    unfavoriteButton.innerText = "Unfavorite";
+    unfavoriteButton.onclick = function() { unfavoriteClass(className); };
+    
+    // Add the class name and unfavorite button to the element
+    classElement.appendChild(unfavoriteButton);
+    favoritesElement.appendChild(classElement);
+
+    
+  });
+  localStorage.setItem("favoriteClasses", JSON.stringify());
+
+}
+      // Sample table of classes
+      let classes = [
+        { name: "English 101", subject: "English", favorite: false },
+        { name: "Math 101", subject: "Math", favorite: false },
+        { name: "History 101", subject: "History", favorite: false },
+        { name: "Science 101", subject: "Science", favorite: false },
+        { name: "Art 101", subject: "Art", favorite: false }
+      ];
+
+      // Find the elements where we want to display the classes
+      let classesDiv = document.getElementById("classes");
+      // Function to update the display of the classes
+      function updateClasses() {
+        let table = "<table><tr><th>Name</th><th>Subject</th><th>Favorite</th></tr>";
+        for (let i = 0; i < classes.length; i++) {
+          let classObj = classes[i];
+          let star = classObj.favorite ? "<span class='fa fa-star favorited'></span>" : "<span class='fa fa-star'></span>";
+          table += "<tr><td>" + classObj.name + "</td><td>" + classObj.subject + "</td><td class='favorite'>" + star + "</td></tr>";
+        }
+        table += "</table>";
+        classesDiv.innerHTML = table;
+        // Add event listeners to the favorite stars in the table
+        let favoriteStars = document.querySelectorAll("#classes .favorite");
+        favoriteStars.forEach(function(star, index) {
+          star.addEventListener("click", function() {
+            classes[index].favorite = !classes[index].favorite;
+            localStorage.setItem("classes", JSON.stringify(classes));
+            updateClasses();
+          });
+        });
+      }
+
+      // Load the favorite state of classes from localStorage
+      let storedClasses = localStorage.getItem("classes");
+      if (storedClasses) {
+        classes = JSON.parse(storedClasses);
+      }
+
+      // Call the update function to initially display the classes
+      updateClasses();
+
+
+
+
+</script>
+
+
+
+
+{% endblock %}

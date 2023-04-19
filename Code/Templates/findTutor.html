@@ -39,10 +39,10 @@
       {% if account['TutorValue'] == 1 %}
 
         <tr>
-          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['firstName']}} {{account['lastName']}}</a></td>
-          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['Grade']}}</a></td>
-          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['Email']}}</a></td>
-          <td><a href="{{ url_for('views.renderInfo', Email = account['Email']) }}">{{account['SubjectsTaught']}}</a></td>
+          <td><a href="{{ url_for('views.renderInfo', Info = account['Email']) }}">{{account['Name']}}</a></td>
+          <td><a href="{{ url_for('views.renderInfo', Info = account['Email']) }}">{{account['Grade']}}</a></td>
+          <td><a href="{{ url_for('views.renderInfo', Info = account['Email']) }}">{{account['Email']}}</a></td>
+          <td><a href="{{ url_for('views.renderInfo', Info = account['Email']) }}">{{account['SubjectsTaught']}}</a></td>
         </tr>
 
       {% endif %}

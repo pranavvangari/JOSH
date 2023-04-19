@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% block title %}
+{% for lstCourse in lstCourse %}
+{% if lstCourse['course_id'] == classes %}
+{{lstCourse['name']}} 
+{% endif %}
+{% endfor %}
+{%endblock%}
+
+
+
+{% block content %}
+<!-- Nav bar to get back to home page-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<!-- Imports data from database and displays it on html file based on the course_id-->
+{% for lstCourse in lstCourse %}
+{% if lstCourse['course_id'] == classes %}
+<div class="jumbotron p-3">
+    <div class="well text-center">
+        <h1>{{lstCourse['name']}}</h1>
+        <h2>{{lstCourse['subject']}}</h2>
+    </div>
+</div>
+<div class="well text-center">
+  <p></p>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card">
+        <div class="container shadow-lg">
+        <h3>Class Description:</h3> 
+        {% if lstCourse['description'] != '' %}
+        <p>{{lstCourse['description']}}</p>
+        {% else %}
+        <p>no course description available</p>
+        {% endif %}
+      </div>
+      </div>
+      </div>
+      <div class="col">
+        <div class ="col text-center">
+          <div class="w-100"> 
+            <ul class="list-group shadow-lg">
+              <li class="list-group-item">Credits: {{lstCourse['credits']}}</li>
+              <li class="list-group-item">Length: {{lstCourse['length']}}</li>
+                {% if lstCourse['grade_lower'] != '' %}
+                <li class="list-group-item">Available Grades: {{lstCourse['grade_lower']}} - {{lstCourse['grade_upper']}} </li>
+                {% else %}
+                <li class="list-group-item">Available Grades: unspecified </li>
+                {% endif %}
+             
+
+              <li class="list-group-item">Tags: {{lstCourse['tags']}}</li>
+              <li class="list-group-item">Enrollment Notes: {{lstCourse['enrollment_notes']}}</li>
+            </ul>
+          </div>
+      
+        </div>
+      </div>
+      <div class="col">
+        <!-- ALEXANDER EXPLAIN THIS CODE-->
+        {% if  lstCourse['course_id'].find("INA") > -1 %}
+        <div class="card" style="width: 18rem;">
+          
+          <div class="card-body shadow-lg">
+            <h5 class="card-title">ACADEMY INFO</h5>
+            <p class="card-text">This class is part of the engineering academy. To learn more about the engineering academy please see the link below.</p>
+            <a target="_blank" href="https://sites.google.com/district158.org/hhsengacademy/home?pli=1" class="btn btn-primary">Go to academy page</a>
+          <p>{{classNumber}}</p>
+          </div>
+        </div>
+        <p></p>
+        {% endif %}
+
+        {% if  lstCourse['course_id'].find("MED") > -1 %}
+        <div class="card" style="width: 18rem;">
+          
+          <div class="card-body shadow-lg">
+            <h5 class="card-title">ACADEMY INFO</h5>
+            <p class="card-text">This class is part of the medical academy. To learn more about the medical academy please see the link below.</p>
+            <a target="_blank" href="https://huntley158.org/hhs/medical-academy/" class="btn btn-primary">Go to academy page</a>
+          <p>{{classNumber}}</p>
+          </div>
+        </div>
+        <p></p>
+        {% endif %}
+
+        {% if  lstCourse['course_id'] is none %}
+        {% elif  lstCourse['course_id'].find("FNA") > -1 %}
+        <div class="card" style="width: 18rem;">
+          
+          <div class="card-body shadow-lg">
+            <h5 class="card-title">ACADEMY INFO</h5>
+            <p class="card-text">This class is part of the Fine Arts Academy. To learn more about the Fine Arts Academy please see the link below.</p>
+            <a  target="_blank" href="https://sites.google.com/district158.org/hhs-fine-arts-academy/requirements-points" class="btn btn-primary">Go to academy page</a>
+          <p>{{classNumber}}</p>
+          </div>
+        </div>
+        <p></p>
+        {% endif %}
+
+        {% if  lstCourse['course_id'].find("SST") > -1 %}
+        <div class="card" style="width: 18rem;">
+          
+          <div class="card-body shadow-lg">
+            <h5 class="card-title">ACADEMY INFO</h5>
+            <p class="card-text">This class is part of the Global Academy. To learn more about the Global Academy please see the link below.</p>
+            <a target="_blank" href="https://sites.google.com/district158.org/hhsglobalacademy/home" class="btn btn-primary">Go to academy page</a>
+          <p>{{classNumber}}</p>
+          </div>
+        </div>
+        <p></p>
+        {% endif %}
+
+        {% if  lstCourse['tags'].find("Honors") > -1 %}
+        <div class="card shadow-lg" style="width: 18rem;">
+          
+          <div class="card-body">
+            <h5 class="card-title">Grading Info</h5>
+            <p class="card-text">This class is an Honors class. This class will provide a curriculum at a faster pace with a more rigourous grading structure than its standard counterpart.</p>
+            <a href="/grading" class="btn btn-primary">Learn more about the HHS Grading Scale</a>
+          </div>
+        </div>
+        {% elif  lstCourse['tags'].find("AP") > -1 %}
+        <div class="card shadow-lg" style="width: 18rem;">
+          
+          <div class="card-body">
+            <h5 class="card-title">Grading Info</h5>
+            <p class="card-text">This class is an AP class. This class will provide a curriculum similar to that of an entry level college course. Upon sucessful completion of the class and a passing grade on the Advanced Placement exam, students can apply for college credit and placement.</p>
+            <a href="/grading" class="btn btn-primary">Learn more about AP classes at HHS</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="card shadow-lg" style="width: 18rem;">
+          
+          <div class="card-body">
+            <h5 class="card-title">Grading Info</h5>
+            <a href="/grading" class="btn btn-primary">Learn more about class weighting and grading options at HHS</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if lstCourse['tags'].find("Blended") > -1 %}
+      <div class="card shadow-lg" style="width: 18rem;">
+          
+        <div class="card-body">
+          <h5 class="card-title">Blended Info</h5>
+          <p class="card-text">This class is offered blended.</p>
+
+          <a href="/blended" class="btn btn-primary">Learn more about blended offerings at HHS</a>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if lstCourse['tags'].find("Dual") > -1 %}
+      <div class="card" style="width: 18rem;">
+          
+        <div class="card-body">
+          <h5 class="card-title">Dual Credit Info</h5>
+          <p class="card-text">This is a dual credit class</p>
+
+          <a href="https://www.mchenry.edu/dualcredit/index.html" class="btn btn-primary">Learn More about dual enrollment classes at offered through McHenry County College at HHS</a>
+        </div>
+      </div>
+      {% endif %}
+      </div>
+      
+    </div>
+  </div>
+  
+
+  
+
+</div>
+
+{% endif %}
+{% endfor %}
+
+{% endblock %}
