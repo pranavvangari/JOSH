@@ -2,18 +2,38 @@
 
 
 {% block title %}Home Screen{% endblock %}
-
+{% block nav %} {% endblock %}
 {% block content %} 
+
+<link rel="stylesheet" href="../static/styles/home.css">
+<header>
+    <div class="wrapper">
+    <div class="logo">
+        <a href="/">J.O.S.H.</a> 
+    </div>
+    <ul class="nav-area">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/myProfile">Profile</a></li>
+    </ul>
     
+</div>
 
-<h1>this is home screen</h1>
-<br/>
-<h4>
-    {{ acc['Name'] }} is logged in
-</h4>
+<div class="welcome-text">
+    <h1>Welcome to J.O.S.H.</h1>
+    <a href="/findTutor">Connect with a tutor</a>
+    <a href="/classesTable">View Course Catalog</a>
+    <a href="/clubsTable">Interact with Student Clubs</a>
+</div>
 
+<!--
+    <footer class="copyrightText">
+        <p>&copy; 2023 jChung Corp. All rights reserved.</p>
+    </footer>
+-->
 
-    <a href="/classes">Classes</a>
+</header>
+
 
 
 

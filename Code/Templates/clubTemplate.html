@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+
+{% block title%} Club Template {% endblock %}
+
+{% block content %}
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>
+  <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
+  <style>
+    html{
+    scroll-behavior: smooth;
+  }
+    body {
+      background-color: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);
+      background-color:rgb(129, 128, 128)
+    }
+    body::-webkit-scrollbar{
+  display:none;
+    }
+    h1{
+      font-family: 'Montserrat', sans-serif;
+      color: #ece2e2;
+      font-size: 18;
+      position: relative;
+      transform: translate(0%, -15%);
+    }
+    h2{
+      font-family: 'Golos Text';
+      position: relative;
+      color: #ece2e2;
+    }
+    p{
+      position: relative;
+      font-size: 16;
+    }
+    div.box1 {
+      background-color: #ac2828;
+      border: 1px solid #ac2828;
+      border-radius: 16px;
+      border-collapse: collapse;
+      padding: 20px;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Montserrat', sans-serif;
+      width: 1200px;
+      color: #ece2e2;
+    }
+    div.box2 {
+    background-color: #ece2e2;
+    border: 1px solid #ece2e2;
+    border-radius: 16px;
+    border-collapse: collapse;
+    padding: 20px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-150%, 0%);
+    width: 350px;
+    font-family: 'Montserrat', sans-serif;
+    color:#e63b3b;
+    height: 300px;
+    }
+    div.box3 {
+    background-color: #ecebeb;
+    border: 1px solid #ecebeb;
+    border-radius: 16px;
+    border-collapse: collapse;
+    padding: 20px;
+    position: absolute;
+    top: 170%;
+    left: 50%;
+    transform: translate(30%, 0%);
+    width: 400px;
+    font-family: 'Montserrat', sans-serif;
+    color: #e63b3b;
+    }
+    div.box4 {
+    background-color: #ac2828;
+    border: 1px solid #ac2828;
+    border-radius: 16px;
+    border-collapse: collapse;
+    padding: 20px;
+    position: absolute;
+    top: 140%;
+    left: 50%;
+    transform: translate(30%, 0%);
+    width: 400px;
+    font-family: 'Montserrat', sans-serif;
+    color: #ecebeb;
+    }
+    img {
+      width: 700px;
+      height: 500px;
+      border-radius: 16px;
+      border-collapse: collapse;
+    }
+    .swiffy-slider {
+      width:700px;
+      transform: translate(5%, 195%);
+      position: absolute;
+      top: 25%;
+    }
+    #back-btn {
+      background-color: #ac2828;
+      border: none;
+      color: white;
+      position: relative;
+      padding: 10px 20px;
+      text-align: center;
+      transform: translate(10%, 10%);
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 16px;
+      border-collapse: collapse;
+}
+  </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base</title>
+</head>
+<body>
+<script type ="text/javascript" src="{{url_for('static', filename='jquery/dist/jquery.min.js')}}"></script>
+<script type ="text/javascript" src = "{{url_for('static', filename = 'bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<button id="back-btn">Home</button>
+  <h1> <center>
+    {% for clubs in clubs %}
+      {% if clubs['Name'] == Name %}
+        <h1>{{ clubs['Name'][:-2] }}</h1>
+      {% endif %}
+    {% endfor %}</center>
+  </h1>
+  <div class="box1">
+  <h2>
+    <center>
+    Description
+    </center>
+  </h2>
+    <p>
+      {% for clubs in clubs %}
+        {% if clubs['Name'] == Name %}
+          {{ clubs['Description'] }}
+        {% endif %}
+      {% endfor %}
+    </p>
+  </div>
+  <div class="box2">
+    <h3><center>Contact Info</center></h3>
+    <p>
+      Teacher(s): 
+      {% for clubs in clubs %}
+        {% if clubs['Name'] == Name %}
+          {{ clubs['ContactInfo'] }}
+        {% endif %}
+      {% endfor %}
+      <br>
+      Email:
+      {% for clubs in clubs %}
+        {% if clubs['Name'] == Name %}
+          {{ clubs['Emails'] }}
+        {% endif %}
+      {% endfor %}
+      <br>
+      Location:
+      {% for clubs in clubs %}
+        {% if clubs['Name'] == Name %}
+          {{ clubs['Location'] }}
+        {% endif %}
+      {% endfor %}
+    </p>
+    <h3><center>Academy Credits</center></h3>
+    <p>
+      Academy(s):
+      {% for clubs in clubs %}
+        {% if clubs['Name'] == Name %}
+          {{ clubs['Academies'] }}
+        {% endif %}
+      {% endfor %}
+    </p>
+  </div> 
+  <div class="box3">
+    <h3><center>FAKE SIGN UP FORM</center></h3>
+    {% for clubs in clubs %}
+        {% if clubs['Name'] == Name %}
+          <a href = "{{clubs['SignupForm']}}" style= "color:#a01717;"><center> CLICK HERE</center></a>
+        {% endif %}
+    {% endfor %}
+  </div>
+  <div class="box4">
+    <h4><center>Follow Us For More Info!</center></h4>
+    {% for clubs in clubs %}
+        {% if clubs['Name'] == Name %}
+          <a href = "{{clubs['InstaHandle']}}" style= "color: #ecebeb;" ><center> Fake Instagram </center> </a>
+        {% endif %}
+    {% endfor %}
+    {% for clubs in clubs %}
+      {% if clubs['Name'] == Name %}
+      <a href = "{{clubs['TwitterHandle']}}" style= "color:#ecebeb;"><center> Fake Twitter </center><a>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <div class="swiffy-slider slider-item-ratio slider-nav-autoplay" data-slider-nav-autoplay-interval="4000" >
+    <ul class="slider-container">
+    {% for clubs in clubs %}
+      {% if clubs['Name'] == Name %}
+      <li>
+        <img src="{{clubs['Image1']}}">
+      </li>
+      <li>
+        <img src="{{clubs['Image2']}}">
+      </li>
+      <li>
+        <img src="{{clubs['Image3']}}">
+      </li>
+      <li>
+        <img src="{{clubs['Image4']}}">
+      </li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    <button type="button" class="slider-nav"></button>
+    <button type="button" class="slider-nav slider-nav-next"></button>
+  </div>
+  <script>
+    var backButton = document.getElementById("back-btn");
+    backButton.addEventListener("click", function() {
+      window.history.back();
+    });
+  </script>
+</body>
+
+
+
+{% endblock %}

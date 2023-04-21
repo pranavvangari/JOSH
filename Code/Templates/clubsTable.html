@@ -4,7 +4,362 @@
 
 
 {% block content %} 
-    <h1>Clubs Table</h1>
-    
 
-{% endblock %}
+
+<style>
+  html{
+    scroll-behavior: smooth;
+  }
+#myInput {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 30%; /* Quarter-width */
+  position: absolute;
+  top: 28%;
+  left: 1%; /*position on screen*/
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px; /* Increase font-size */
+  padding: 16px 20px 16px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+#myTable {
+  border-collapse: collapse; /* Collapse borders */
+  border-radius: 16px;
+  border-collapse: collapse;
+  overflow: hidden;
+  left: 1%; 
+  width: 98%; /* width */
+  position: absolute;
+  top: 40%;
+  border: 6px solid #7e7e7e; /* Add a grey border */
+  font-size: 20px; /* Increase font-size */
+}
+#myTable th, #myTable td {
+  text-align: left; /* Left-align text */
+  padding: 10px; /* Add padding */
+}
+#myTable tr {
+  border-bottom: 7px solid #7e7e7e;
+}
+#myTable tr.header, #myTable tr:hover {
+  background-color: #7e7e7e;
+}
+body {
+      background-color: #b4b3b3;
+      color: #000000;
+}
+body::-webkit-scrollbar{
+  display:none;
+}
+h5 {
+      font-weight: bold;
+      font-size: 45px;
+      text-align: center;
+      left: 26%;
+      font-family: 'Golos Text';
+      color: #9b3535;
+      position: relative;
+      top: 0px;
+}
+p {
+      font-family: 'Open sans';
+      font-weight: bold;
+      font-size: 26px;
+      color: #000000;
+      position: absolute;
+      top: 8%;
+      left: 2%;
+}
+img {
+      max-width: 100%;
+      height: auto;
+}
+div.box1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      background-color: #9b3535;
+      border: 1px solid #000000;
+      color: #faf9f9;
+      padding: 35px;
+      width: 360px;
+      border-radius: 16px;
+      border-collapse: collapse;
+}
+div.box2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      background-color: #363131;
+      border: 1px solid #000000;
+      color: #faf9f9;
+      padding: 35px;
+      width: 360px;
+      border-radius: 16px;
+      border-collapse: collapse;
+}
+div.box3{
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      background-color: #000000;
+      border: 1px solid #000000;
+      color: #faf9f9;
+      padding: 35px;
+      width: 400px;
+      border-radius: 16px;
+      border-collapse: collapse;
+}
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+input[type="checkbox"] {
+  transform: scale(1.5);
+  /* Adjust the number as needed to change the size */
+}
+#Mon {
+  position: absolute; 
+  font-family: 'Open sans';
+  font-size: 20px;
+  left: 5%; 
+  top: 15%; 
+}
+#Tue {
+  position: absolute; 
+  font-family: 'Open sans';
+  font-size: 20px;
+  left: 5%; 
+  top: 21%; 
+}
+#Wed {
+  position: absolute; 
+  font-family: 'Open sans';
+  font-size: 20px;
+  left: 15%; 
+  top: 15%;
+}
+#Thu {
+  position: absolute; 
+  font-family: 'Open sans';
+  font-size: 20px;
+  left: 15%; 
+  top: 21%;
+}
+#Fri {
+  position: absolute; 
+  font-family: 'Open sans';
+  font-size: 20px;
+  left: 27%; 
+  top: 15%;
+}
+#Sat {
+  display:none
+}
+#Sun {
+  display:none
+}
+#Monday{
+  float: left;
+  display: flex;
+  color: #000000;
+  font-family: sans-serif;
+  position: absolute;
+  padding: 2px;
+  margin: 1px 5;
+  width: 30px;
+  height: 16px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  left: 2%; 
+  top: 16%;  
+}
+#Tuesday{
+  float: left;
+  display: flex;
+  color: #000000;
+  font-family: sans-serif;
+  position: absolute;
+  padding: 2px;
+  margin: 1px 5;
+  width: 30px;
+  height: 16px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  left: 2%; 
+  top: 22%; 
+}
+#Wednesday{
+  float: left;
+  display: flex;
+  color: #000000;
+  font-family: sans-serif;
+  position: absolute;
+  padding: 2px;
+  margin: 1px 5;
+  width: 30px;
+  height: 16px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  left: 12%; 
+  top: 16%; 
+}
+#Thursday{
+  float: left;
+  display: flex;
+  color: #000000;
+  font-family: sans-serif;
+  position: absolute;
+  padding: 2px;
+  margin: 1px 5;
+  width: 30px;
+  height: 16px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  left: 12%; 
+  top: 22%; 
+}
+#Friday{
+  float: left;
+  display: flex;
+  color: #000000;
+  font-family: sans-serif;
+  position: absolute;
+  padding: 2px;
+  margin: 1px 5;
+  width: 30px;
+  height: 16px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  left: 24%; 
+  top: 16%;  
+}
+#Saturday{
+  display:none
+}
+#Sunday{
+  display:none 
+}
+</style>
+<head>
+  <h5> Huntley High School Clubs </h5>
+  <title>Home</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@500&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #b4b3b3;">
+<input type="text" id="myInput" class= "shadow-lg mb-5 bg-white rounded" onkeyup="myFunction()" placeholder="Search...">
+<div id="checks">
+<input type="checkbox" id="Monday" onchange="myFunction()">
+<label for="Monday" id="Mon"> Monday</label><br>
+<input type="checkbox" id="Tuesday" onchange="myFunction()">
+<label for="Tuesday" id="Tue"> Tuesday</label><br>
+<input type="checkbox" id="Wednesday" onchange="myFunction()">
+<label for="Wednesday" id="Wed"> Wednesday</label><br>
+<input type="checkbox" id="Thursday" onchange="myFunction()">
+<label for="Thursday" id="Thu"> Thursday</label><br>
+<input type="checkbox" id="Friday" onchange="myFunction()">
+<label for="Friday" id="Fri"> Friday</label><br>
+<input type="checkbox" id="Saturday" onchange="myFunction()">
+<label for="Saturday" id="Sat"> Saturday</label><br>
+<input type="checkbox" id="Sunday" onchange="myFunction()">
+<label for="Sunday" id="Sun"> Sunday</label><br>
+</div>
+<table id="myTable">
+  <tr class="header">
+    <th style="width:30%;">Name</th>
+    <th style="width:30%;">Times</th>
+    <th style="width:30%">Dates</th>
+    {% for clubs in clubs %}
+      <tr>
+      <td class="clubContainer" data-Monday = "{{clubs['Monday']}}" data-Tuesday = "{{clubs['Tuesday']}}" 
+      data-Wednesday = "{{clubs['Wednesday']}}" data-Thursday = "{{clubs['Thursday']}}" 
+      data-Friday = "{{clubs['Friday']}}" data-Saturday = "{{clubs['Saturday']}}" data-Sunday = "{{clubs['Sunday']}}">
+          <a href="{{ url_for('views.renderInfo', Info = clubs['Name']) }}" style="text-decoration: none; color: #faf9f9;">
+            <div class="box1"> 
+              {% if clubs['Name'].endswith('--') %}
+                {{ clubs['Name'][:-2] }}
+              {% else %}
+                {{ clubs['Name'] }}
+              {% endif %}
+      
+            </div>
+          </a>
+      </td>
+      <td>
+        <a href="{{url_for('views.renderInfo', Info = clubs['Name'])}}" style="text-decoration: none; color: #faf9f9;">
+        <div class="box2">
+      {{clubs['Times']}}
+        </div>
+        </a>
+      </td>
+      <td>
+        <a href="{{url_for('views.renderInfo', Info = clubs['Name'])}}" style="text-decoration: none; color: #faf9f9;">
+        <div class="box3">
+      {{clubs['Dates']}}
+        </div>
+        </a>
+      </td>
+      </tr>
+    {% endfor %}
+  </tr>
+  <script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue, daysMatch, searchMatch;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        daysMatch = true;
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          searchMatch = txtValue.toUpperCase().indexOf(filter) > -1
+          if (document.getElementById("Monday").checked) {
+            daysMatch = daysMatch && td.dataset.monday == '1'; //only filter by this day if its checkbox is checked
+          }
+          if (document.getElementById("Tuesday").checked) {
+            daysMatch = daysMatch && td.dataset.tuesday == '1'; //only filter by this day if its checkbox is checked
+          }
+          if (document.getElementById("Wednesday").checked) {
+            daysMatch = daysMatch && td.dataset.wednesday == '1'; //only filter by this day if its checkbox is checked
+          }
+          if (document.getElementById("Thursday").checked) {
+            daysMatch = daysMatch && td.dataset.thursday == '1'; //only filter by this day if its checkbox is checked
+          }
+          if (document.getElementById("Friday").checked) {
+            daysMatch = daysMatch && td.dataset.friday == '1'; //only filter by this day if its checkbox is checked
+          }
+          if (document.getElementById("Saturday").checked) {
+            daysMatch = daysMatch && td.dataset.saturday == '1'; //only filter by this day if its checkbox is checked
+          }
+          if (document.getElementById("Sunday").checked) {
+            daysMatch = daysMatch && td.dataset.sunday == '1'; //only filter by this day if its checkbox is checked
+          }
+          if(daysMatch && searchMatch){
+            tr[i].style.display = "";
+            //console.log(txtValue)
+          }else{
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<p>
+  Filters:
+</p>
+</body>
+{%endblock%}
+
+    

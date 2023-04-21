@@ -49,6 +49,11 @@ def get_classesDB_connection():
     classesConn = sqlite3.connect('CourseCatalog.db')
     classesConn.row_factory = sqlite3.Row
     return classesConn
+
+def get_clubsDB_connection():
+    clubsConnection = sqlite3.connect('RealDB.db')
+    clubsConnection.row_factory = sqlite3.Row
+    return clubsConnection
     
 
 def update_bio(conn, task):
@@ -287,12 +292,19 @@ def renderInfo(Info):
     dbConn = get_classesDB_connection()
     lstCourse = dbConn.execute('''select * from Catalog''').fetchall()
     
-    
+    clubsConnection = get_clubsDB_connection()
+    clubs = clubsConnection.execute('SELECT * from clubs LEFT JOIN weekdays on clubs.name = weekdays.name').fetchall()
 
     methodNumber = 1
+
     for letter in Info:
         if letter == '@':
             methodNumber = 2
+        
+
+    if '--' in Info:
+        methodNumber = 3
+
     if methodNumber == 1:
         return render_template('classTemplate.html', classes=Info, lstCourse=lstCourse)
     elif methodNumber == 2:
@@ -302,17 +314,12 @@ def renderInfo(Info):
                 acc = account
 
         tempProfilePicture = acc['ProfilePicture']
-
         s2 = tempProfilePicture
         s1 = 'pictures/'
         tutorProfilePicture = "%s %s" % (s1, s2)
         return render_template('tutor.html', accounts=accounts, email=Info, tutorProfilePicture=tutorProfilePicture)
-
-        
-
-    
-
-    #return render_template('tutor.html', accounts=accounts, email=Email, tutorProfilePicture=tutorProfilePicture, lstCourse=lstCourse, classes = Email)
+    elif methodNumber == 3:
+        return render_template("clubTemplate.html", clubs=clubs, Name=Info)
 
 
 
@@ -427,6 +434,10 @@ def send_value():
 
     print("js works") 
     print(value_received)
+
+    
+
+
     return render_template("home.html")
 
 
@@ -470,7 +481,7 @@ def classesChecked():
 @views.route('/send_grade', methods=['POST'])
 # function run in js 
 def send_grade():
-    value_received = request.json['grade']
+    gradeRecieved = request.json['grade']
 
     connection = get_db_connection()
     accounts = connection.execute('SELECT * FROM Accounts').fetchall() # selects everything from Accounts table
@@ -482,7 +493,8 @@ def send_grade():
         if account['Email'] == session['email']:
             acc = account
 
-    update_grade(connection, (value_received, acc['ID']))
+    
+    update_grade(connection, (gradeRecieved, acc['ID']))
     
 
     
@@ -519,23 +531,18 @@ def grading():
 def blended():
     return render_template("blended.html")
 
-
+#
+#
+#
+#
 # Clubs Aspect - Yehan and Ansel's code
 
 @views.route('/clubsTable', endpoint='clubsTable')
 @login_is_required
 def clubsTable():
-    return render_template("clubsTable.html")
+    clubsConnection = get_clubsDB_connection()
+    clubs = clubsConnection.execute('SELECT * from clubs LEFT JOIN weekdays on clubs.name = weekdays.name').fetchall()
 
-
-
-
-
-
-
-
-
-
-
+    return render_template("clubsTable.html", clubs=clubs)
 
 
