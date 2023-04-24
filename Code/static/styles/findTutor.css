@@ -1,16 +1,24 @@
 .container {
   display: flex;
+
+}
+
+header {
+  color: black;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 /* Style for the filter column */
 .filter-column {
   flex: 0 0 200px; /* Set width of the filter column */
-  background-color:rgb(245, 245, 245);
+  background-color:rgb(17, 16, 16);
   padding: 10px;
   /*max-height: calc(55vh); /* Set min-height based on viewport height minus header and footer height
   min-height: calc(55vh);*/
   max-height: 400px;
   min-height: 400px;
+
 }
 
 /* Style for the main content */
@@ -40,7 +48,7 @@ td a:hover {
 }
 
 tr:hover a {
-  color: #9d152d;
+  color: gray;
 }
 
 .table td {
@@ -68,5 +76,5 @@ body::-webkit-scrollbar{
 }
 
 #searchInput {
-  float: right;
+  margin-bottom: 3%;
 }

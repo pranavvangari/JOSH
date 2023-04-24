@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: 'Josefin Sans', sans-serif;
+
+}
+
+  
+
+
+.tutorPage {
+    position: absolute;
+    width: 1000px;
+    display: flex;
+    margin-top: 1%;
+    /*box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);*/
+    color: black;
+}
+
+.tutorPage .tutorPageLeft {
+    width: 45%;
+    /*height: 100%;*/
+    background: linear-gradient(to right, #9b9898, #959999);
+    
+    
+}
+
+.tutorPageLeft {
+    height: 99vh;
+}
+
+.tutorPage .tutorPageLeft .profilePicture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    margin-top: 5%;
+}
+
+.tutorPage .tutorPageLeft .tutorName {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    margin-top: 4%;
+    
+}
+
+.tutorPage .tutorPageRight {
+    width: 100%;
+    
+}
+
+.tutorPage .tutorPageRight .tutorInfo {
+    margin-left: 10%;
+    
+}
+
+.tutorPage .tutorPageRight .tutorInfo .tutor-data {
+    margin-top: 5%;
+}
+
+.tutorPage .tutorPageRight .tutorInfo .tutor-data .data {
+    margin-top: 5%;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}

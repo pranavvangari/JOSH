@@ -9,7 +9,8 @@
 }
 
 header {
-  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://wallpapersqueen.com/wp-content/uploads/2022/04/Chicago-X-Box-Wallpaper.jpg");
+  /*background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://wallpapersqueen.com/wp-content/uploads/2022/04/Chicago-X-Box-Wallpaper.jpg");*/
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://i.ytimg.com/vi/-MKapbz0GIo/maxresdefault.jpg");
   height: 100vh;
   /*-webkit-background-size: cover;*/
   background-size: cover;

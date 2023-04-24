@@ -3,24 +3,58 @@
 
 {% block title %}Tutor{% endblock %}
 
+
+
 {% block content %} 
-    <h1>Welcome to Tutor Page</h1>
-    <br>
+    <link rel="stylesheet" href="../static/styles/tutor.css">
+
+    
 
     {% for account in accounts %}
     
     
         {% if account['Email'] == email %}
-            <div style="float: right;">
-                    
-                <h5>{{account['Name']}}'s Profile Picture:</h5>
-                <img src="{{ url_for('static', filename=tutorProfilePicture)}}" alt="Your image is not rendering" width="250" height="250">
-            </div>
 
-            <h1>Tutor name is {{ account['Name'] }}</h1>
-            <h5>Grade: {{ account['Grade'] }}</h5>
-            <h5>Email me: {{ account['Email'] }}</h5>
-            <h5>About me: {{ account['Bio'] }}  </h5>
+            <div class="tutorPage">
+                <div class="tutorPageLeft">
+                    <img class="profilePicture" src="{{ url_for('static', filename=tutorProfilePicture)}}" alt="">
+                    <h4 class="tutorName" align='center'>{{ account['Name'] }}</h4>
+                    
+                </div>
+
+                <div class="tutorPageRight">
+                    <div class="tutorInfo">
+                        
+                        <div class="tutor-data">
+                            <div class="data">
+                                <h4 style="font-weight: bold;">Bio:</h4>
+                                <p>{{ account['Bio'] }}</p>
+                            </div>
+                            <div class="data">
+                                <h4 style="font-weight: bold;">Grade</h4>
+                                <p>{{ account['Grade'] }}</p>
+                            </div>
+
+                            <div class="data">
+                                <h4 style="font-weight: bold;">Subjects Taught</h4>
+                                <p>{{ account['SubjectsTaught'] }}</p>
+                            </div>
+                            <div class="data">
+                                <h4 style="font-weight: bold;">Email</h4>
+                                <p>{{ account['Email'] }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+            
+
+            
+            <h5></h5>
+            <h5></h5>
+            
 
         {% endif %}
 

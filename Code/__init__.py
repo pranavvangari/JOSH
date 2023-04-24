@@ -1,8 +1,4 @@
-from flask import Flask, request, flash, render_template
-from flask_sqlalchemy import SQLAlchemy
-from os import path
-from flask_login import LoginManager
-from flask_mail import Mail, Message
+from flask import Flask
 
 
 def create_app():
