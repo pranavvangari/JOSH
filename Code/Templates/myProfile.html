@@ -11,86 +11,87 @@
 
         <div class="myProfileLeft">
 
-            <a href="/profilePicChange">Change your Profile Picture</a>
-            <h5>Your Profile Picture:</h5>
-            <img src="{{ url_for('static', filename=profilePicture)}}" alt="Your image is not rendering" width="250" height="250">
+
+            <img class="profilePicture" src="{{ url_for('static', filename=profilePicture)}}" alt="Your image is not rendering">
+            <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+            <lord-icon
+                src="https://cdn.lordicon.com/edxgdhxu.json"
+                trigger="hover"
+                style="width:250px;height:250px;">
+                
+            </lord-icon>
+
         </div>
 
 
 
         <div class='myProfileRight'>
-            
-            <li>
-                Email: {{ acc['Email'] }}
-            </li>
-            <li>
-                Password: {{ acc['Password'] }}
-            </li>
-            <li>
-                Name: {{ acc['Name'] }}
-            </li>
-            
-            
-            <li>
-                Grade: {{ acc['Grade'] }}
-            </li>
-            <li>
-                Id: {{ acc['ID'] }}
-            </li>
-            {% if acc['TutorValue'] == 1 %}
-                <li>
-                    Classes Taught: {{ acc['SubjectsTaught']}}
-                </li>
-                <a href="/classes" style="text-decoration: none;">Classes I can teach</a>
+            <div class="profileData">
+                <div class="data">
+                    <h4 style="font-weight: bold;">Name</h4>
+                    <p>{{ acc['Name'] }}</p>
+                </div>
+                <div class="data">
+                    <h4 style="font-weight: bold;">Grade</h4>
+                    <p>{{ acc['Grade'] }}</p>
+                </div>
+                {% if acc['TutorValue'] == 1 %}
+                    <div class="data">
+                        <h4 style="font-weight: bold;">Classes Taught</h4>
+                        <p>{{ acc['SubjectsTaught'] }}</p>
+                        <a href="/classes" style="text-decoration: none;">Classes I can teach</a>
+                    </div>
+                {% endif %}
+                <div class="data">
+                    <h4 style="font-weight: bold;">Bio</h4>
+                    <p>{{ acc['Bio'] }}</p>
+                </div>
 
-            {% endif %}
+                <label for="TutorCheckbox">Are you a tutor?</label>
+                <input type="checkbox" id="{{acc['ID']}}" class="tutorCheckboxDynamic" onchange="getValue()">
 
-            <li>
-                Bio: {{ acc['Bio'] }}
-            </li>
+                <form method="POST" class="bioPost">
+
+                
+                <div>
+                    <textarea name="bio" id="bio" placeholder="Add bio"></textarea>
+            
+                </div>
+                
+            
+                <br />
+
+                
+            
+                <div align="center">
+                    <button type="submit" >Update Information</button>
+                </div>
+
+                </form>
+
+                <label for="grade">Grade</label>
+
+                <select name="grade" id="gradeDropdown" onchange="getGrade()">
+                    <option value="Freshman">Freshman</option>
+                    <option value="Sophomore">Sophomore</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                </select>
+
+                
+                
+                <br>
+            </div>
+            
 
         </div>
         
-
-        <form method="POST">
-
-            <label for="TutorCheckbox">Are you a tutor?</label>
-            <input type="checkbox" id="{{acc['ID']}}" class="tutorCheckboxDynamic" onchange="getValue()">
+        <div class="myProfileRightBottom">
             
 
-            
-
-            
-            <div>
-                <textarea name="bio" id="bio" placeholder="Add bio"></textarea>
+           
+        </div>
         
-            </div>
-            
-        
-            <br />
-
-            
-        
-            <div align="center">
-                <button type="submit" >Update Information</button>
-            </div>
-
-        </form>
-
-        <label for="grade">Grade</label>
-
-        <select name="grade" id="gradeDropdown" onchange="getGrade()">
-            <option value="Freshman">Freshman</option>
-            <option value="Sophomore">Sophomore</option>
-            <option value="Junior">Junior</option>
-            <option value="Senior">Senior</option>
-        </select>
-
-        
-        
-        <br>
-
-        <br><br><br>
     </header>
     
 

@@ -1,0 +1,162 @@
+{% block title %} Favorites {%endblock%}
+
+
+
+{% block body %}
+<style>
+  .favorited {
+     color: gold;
+  }
+</style>
+
+<!-- Nav bar to get back to home page-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="http://127.0.0.1:5000/classesTable">Back to Catalog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<div class="jumbotron p-3">
+  <div class="well text-center">
+      <h1>My Favorited Courses</h1>
+      <div id="favoriteClasses">
+
+      </div>
+  </div>
+</div>
+<style>
+  
+/* CSS style for the table */
+#favoritesTable {
+  background-color: #f2f2f2; /* light gray background */
+  border-collapse: collapse; /* remove spacing between cells */
+  width: 100%; /* full width of the container */
+}
+
+/* CSS style for table cells */
+#favoritesTable td, #favoritesTable th {
+  border: 1px solid #ddd; /* gray border between cells */
+  padding: 8px; /* padding inside cells */
+  text-align: left; /* left-align cell contents */
+}
+
+/* CSS style for table header cells */
+#favoritesTable th {
+  background-color: #4CAF50; /* green background */
+  color: white; /* white text */
+}
+</style>
+<script>
+  
+      updateFavoritesList();
+      function updateFavoritesList() {
+  // Get the favorite classes element from the DOM
+  let favoriteClasses =[];
+  favoriteClasses = JSON.parse(localStorage.getItem("favclasses"));
+  let favoriteIDs =[];
+  favoriteIDs = JSON.parse(localStorage.getItem("favids"));
+  let favoriteSubjs =[];
+  favoriteSubjs = JSON.parse(localStorage.getItem("favsubjs"));
+  
+  let favoritesElement = document.getElementById("favoriteClasses");
+  
+  
+  // Clear the previous contents of the favorites element
+  favoritesElement.innerHTML = "";
+  
+  // Loop through the favorited classes and add them to the element
+  // Create the table element
+let table = document.createElement("table");
+table.id = "favoritesTable";
+table.class ="table table-dark"
+
+// Create the table header
+let header = table.createTHead();
+let row = header.insertRow();
+let classNameHeader = row.insertCell();
+classNameHeader.innerText = "Class Name";
+let subjectHeader = row.insertCell();
+subjectHeader.innerText = "Subject";
+let idHeader = row.insertCell();
+idHeader.innerText = "ID";
+let unfavoriteHeader = row.insertCell();
+unfavoriteHeader.innerText = "Unfavorite Class";
+
+// Create the table body (empty for now)
+let tbody = table.createTBody();
+
+// Add the table to the document
+document.body.appendChild(table);
+
+let favoritesTable = document.getElementById("favoritesTable");
+var i = 0
+favoriteClasses.forEach(className => {
+  // Create a new row element
+  let row = favoritesTable.insertRow();
+  
+  // Add a cell for the class name
+  let classCell = row.insertCell();
+  let classElement = document.createElement("p");
+  classElement.innerText = className;
+  classCell.appendChild(classElement);
+
+  // Add a cell for the subject
+  let subjCell = row.insertCell();
+  let subjElement = document.createElement("p");
+  subjElement.innerText = favoriteSubjs[i];
+  subjCell.appendChild(subjElement);
+  
+  
+  // Add a cell for the ID
+  let idCell = row.insertCell();
+  let idElement = document.createElement("p");
+
+  idElement.innerText = favoriteIDs[i];
+  idCell.appendChild(idElement);
+  i++
+
+   // Add a cell for the unfavorite button
+  let unfavoriteCell = row.insertCell();
+  let unfavoriteButton = document.createElement("button");
+  unfavoriteButton.innerText = "Unfavorite";
+  unfavoriteButton.onclick = function() { unfavoriteClass(className); };
+  unfavoriteCell.appendChild(unfavoriteButton);
+});
+
+}
+
+function unfavoriteClass(className) {
+
+let favoriteClasses =[];
+//localStorage.setItem("favclasses", JSON.stringify(favoriteClasses));
+favoriteClasses = JSON.parse(localStorage.getItem("favclasses"));
+
+let favoriteSubjects =[];
+//localStorage.setItem("favsubjs", JSON.stringify(favoriteSubjects));
+favoriteSubjects= JSON.parse(localStorage.getItem("favsubjs"));
+
+let favoriteIDs =[];
+//localStorage.setItem("favids", JSON.stringify(favoriteIDs));
+favoriteIDs= JSON.parse(localStorage.getItem("favids"));
+  // Find the index of the class in the favorites array
+  
+  let index = favoriteClasses.indexOf(className);
+  
+  // If the class is found, remove it from the array
+  if (index !== -1) {
+    favoriteClasses.splice(index, 1);
+    favoriteSubjects.splice(index, 1);
+    favoriteIDs.splice(index, 1);
+
+    localStorage.setItem("favclasses", JSON.stringify(favoriteClasses));
+    localStorage.setItem("favsubjs", JSON.stringify(favoriteSubjects));
+    localStorage.setItem("favids", JSON.stringify(favoriteIDs));
+    
+    // Update the list of favorited classes
+    location.reload()
+  }
+}
+</script>
+
+{% endblock %}

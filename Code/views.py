@@ -1,11 +1,9 @@
 
-from cgi import print_environ_usage
-from tabnanny import check
-from unicodedata import category
+
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for, make_response, Flask, abort
-from importlib_metadata import re
+
 import sqlite3
-from flask_login import current_user, login_required, logout_user
+
 
 #google login
 from google_auth_oauthlib.flow import Flow
@@ -18,26 +16,25 @@ import pathlib
 import requests
 
 
-
-
-
-
 views = Blueprint('views', __name__)
 
 
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-GOOGLE_CLIENT_ID = "405828725907-bm4bdsfe6dpk7llrevcaev5louftvtc1.apps.googleusercontent.com"
+<<<<<<< HEAD
+GOOGLE_CLIENT_ID = "905900914523-ku43t62684bpu8lcr87gs8p872beda3o.apps.googleusercontent.com"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+=======
+GOOGLE_CLIENT_ID = "405828725907-bm4bdsfe6dpk7llrevcaev5louftvtc1.apps.googleusercontent.com"
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "new_client_secret.json")
+>>>>>>> 77df6ec0d0e5b0209bc4fe5e4cd3d44ef214a308
 
 flow = Flow.from_client_secrets_file(  #Flow is OAuth 2.0 a class that stores all the information on how we want to authorize our users
     client_secrets_file=client_secrets_file,
     scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],  #here we are specifing what do we get after the authorization
     redirect_uri="http://127.0.0.1:5000/callback"  #and the redirect URI is the point where the user will end up after the authorization
 )
-
-
 
 
 def get_db_connection():
@@ -544,5 +541,10 @@ def clubsTable():
     clubs = clubsConnection.execute('SELECT * from clubs LEFT JOIN weekdays on clubs.name = weekdays.name').fetchall()
 
     return render_template("clubsTable.html", clubs=clubs)
+
+@views.route('/planner', endpoint='planner')
+@login_is_required
+def Plan():
+    return render_template("planner.html")
 
 
