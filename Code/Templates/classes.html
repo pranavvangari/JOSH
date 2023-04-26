@@ -4,52 +4,57 @@
 {% block title %}About Us{% endblock %}
 
 {% block content %}
-    <h1>Classes</h1>
 
-<input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for a tutor...">
-<br><br>
+    <header class="classesTaughtPage">
+        <h1>Classes</h1>
 
-
-<table id= "classes-table" class="table shadow-lg table-dark">
-    <thead>
-        <tr>
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for a tutor...">
+        <br><br>
 
 
-            <th>Number</th>
-            <th>ID</th>
-            <th>Name</th>
-                        
+        <table id= "classes-table" class="table shadow-lg table-dark">
+            <thead>
+                <tr>
+
+
+                    <th>Number</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                                
 
 
 
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Imports data from database -->
-        {% for class in classes %}
-            {% if class['subject'] != Null %}
-                <tr class= "filterDiv {{class['subject']}}">
-                    <td class="bg-danger">
-                        <label>
-                            <input type="checkbox" id="{{ class['name'] }}" class="courseID" onchange="findChecked()">
-                        </label>
-    
-                    </td>
-    
-                    <td class="bg-secondary">{{ class['course_id'] }}</td>
-                    <td class="bg-danger">
-                        {{ class['name'] }}
-                        
-                    </td>
-                    
-                
                 </tr>
+            </thead>
+            <tbody>
+                <!-- Imports data from database -->
+                {% for class in classes %}
+                    {% if class['subject'] != Null %}
+                        <tr class= "filterDiv {{class['subject']}}">
+                            <td class="bg-danger">
+                                <label>
+                                    <input type="checkbox" id="{{ class['name'] }}" class="courseID" onchange="findChecked()">
+                                </label>
             
-            {% endif %}
-          
-      {% endfor %}
-  </tbody>
-</table>
+                            </td>
+            
+                            <td class="bg-secondary">{{ class['course_id'] }}</td>
+                            <td class="bg-danger">
+                                {{ class['name'] }}
+                                
+                            </td>
+                            
+                        
+                        </tr>
+                    
+                    {% endif %}
+                
+            {% endfor %}
+        </tbody>
+        </table>
+    </header>
+
+    
 
 <script>
 
