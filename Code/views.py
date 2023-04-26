@@ -22,13 +22,8 @@ views = Blueprint('views', __name__)
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-<<<<<<< HEAD
-GOOGLE_CLIENT_ID = "905900914523-ku43t62684bpu8lcr87gs8p872beda3o.apps.googleusercontent.com"
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
-=======
 GOOGLE_CLIENT_ID = "405828725907-bm4bdsfe6dpk7llrevcaev5louftvtc1.apps.googleusercontent.com"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "new_client_secret.json")
->>>>>>> 77df6ec0d0e5b0209bc4fe5e4cd3d44ef214a308
 
 flow = Flow.from_client_secrets_file(  #Flow is OAuth 2.0 a class that stores all the information on how we want to authorize our users
     client_secrets_file=client_secrets_file,
