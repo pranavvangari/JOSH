@@ -40,7 +40,7 @@
       border: 1px solid #ac2828;
       border-radius: 16px;
       border-collapse: collapse;
-      padding: 20px;
+      padding: 30px;
       position: absolute;
       top: 40%;
       left: 50%;
@@ -58,7 +58,7 @@
     position: absolute;
     top: 60%;
     left: 50%;
-    transform: translate(-150%, 0%);
+    transform: translate(-170%, 0%);
     width: 350px;
     font-family: 'Montserrat', sans-serif;
     color:#e63b3b;
@@ -109,7 +109,7 @@
       border: none;
       color: white;
       position: relative;
-      padding: 10px 20px;
+      padding: 8px 18px;
       text-align: center;
       transform: translate(10%, 10%);
       text-decoration: none;
@@ -186,7 +186,7 @@
     </p>
   </div> 
   <div class="box3">
-    <h3><center>FAKE SIGN UP FORM</center></h3>
+    <h3><center>Sign Up Form</center></h3>
     {% for clubs in clubs %}
         {% if clubs['Name'] == Name %}
           <a href = "{{clubs['SignupForm']}}" style= "color:#a01717;"><center> CLICK HERE</center></a>
@@ -197,12 +197,12 @@
     <h4><center>Follow Us For More Info!</center></h4>
     {% for clubs in clubs %}
         {% if clubs['Name'] == Name %}
-          <a href = "{{clubs['InstaHandle']}}" style= "color: #ecebeb;" ><center> Fake Instagram </center> </a>
+          <a href = "{{clubs['InstaHandle']}}" style= "color: #ecebeb;" ><center> Instagram </center> </a>
         {% endif %}
     {% endfor %}
     {% for clubs in clubs %}
       {% if clubs['Name'] == Name %}
-      <a href = "{{clubs['TwitterHandle']}}" style= "color:#ecebeb;"><center> Fake Twitter </center><a>
+      <a href = "{{clubs['TwitterHandle']}}" style= "color:#ecebeb;"><center> Twitter </center><a>
       {% endif %}
     {% endfor %}
   </div>
@@ -235,7 +235,4 @@
     });
   </script>
 </body>
-
-
-
 {% endblock %}
