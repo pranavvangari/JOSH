@@ -28,7 +28,7 @@ views = Blueprint('views', __name__)
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-GOOGLE_CLIENT_ID = "405828725907-bm4bdsfe6dpk7llrevcaev5louftvtc1.apps.googleusercontent.com"
+GOOGLE_CLIENT_ID = "905900914523-ku43t62684bpu8lcr87gs8p872beda3o.apps.googleusercontent.com"
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
 
 flow = Flow.from_client_secrets_file(  #Flow is OAuth 2.0 a class that stores all the information on how we want to authorize our users
@@ -544,5 +544,10 @@ def clubsTable():
     clubs = clubsConnection.execute('SELECT * from clubs LEFT JOIN weekdays on clubs.name = weekdays.name').fetchall()
 
     return render_template("clubsTable.html", clubs=clubs)
+
+@views.route('/planner', endpoint='planner')
+@login_is_required
+def Plan():
+    return render_template("planner.html")
 
 

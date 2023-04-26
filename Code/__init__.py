@@ -1,8 +1,6 @@
 from flask import Flask, request, flash, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import path
-from flask_login import LoginManager
-from flask_mail import Mail, Message
 
 
 def create_app():
